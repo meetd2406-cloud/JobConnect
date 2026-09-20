@@ -1,0 +1,4 @@
+import{useEffect,useState}from"react";import{Link}from"react-router-dom";import api from"../api.js";
+export default function Jobs(){const[j,setJ]=useState([]),[q,setQ]=useState(""),[loc,setLoc]=useState("");
+useEffect(()=>{api.get("/jobs",{params:{search:q,location:loc}}).then(x=>setJ(x.data))},[q,loc]);
+return <main className="container"><h1>Find Jobs</h1><div className="filters"><input placeholder="Search title, company or skill" value={q} onChange={e=>setQ(e.target.value)}/><input placeholder="Location" value={loc} onChange={e=>setLoc(e.target.value)}/></div><div className="grid">{j.map(x=><article className="card" key={x._id}><span className="tag">{x.category}</span><h2>{x.title}</h2><h3>{x.company}</h3><p>📍 {x.location}</p><p>💰 {x.salary} · Experience: {x.experience}</p><p>{x.description.slice(0,120)}...</p><Link className="btn" to={"/jobs/"+x._id}>View Job</Link></article>)}</div>{!j.length&&<p>No jobs found.</p>}</main>}

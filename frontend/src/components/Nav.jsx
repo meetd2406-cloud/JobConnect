@@ -1,0 +1,2 @@
+import{Link}from"react-router-dom";import{useAuth}from"../context/Auth.jsx";
+export default function Nav(){const{user,logout}=useAuth();return <header><Link className="logo" to="/">JobConnect</Link><nav><Link to="/jobs">Find Jobs</Link>{user?.role==="seeker"&&<Link to="/applications">My Applications</Link>}{user?.role==="employer"&&<Link to="/dashboard">Employer Dashboard</Link>}{user?<button onClick={logout}>Logout</button>:<><Link to="/login">Login</Link><Link to="/register">Register</Link></>}</nav></header>}

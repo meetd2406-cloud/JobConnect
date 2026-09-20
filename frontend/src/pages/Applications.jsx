@@ -1,0 +1,2 @@
+import{useEffect,useState}from"react";import api from"../api.js";
+export default function Applications(){const[a,setA]=useState([]);useEffect(()=>api.get("/applications/mine").then(x=>setA(x.data)),[]);return <main className="container"><h1>My Applications</h1>{a.map(x=><article className="card row" key={x._id}><div><h2>{x.job?.title}</h2><p>{x.job?.company} · {x.job?.location}</p></div><span className="status">{x.status}</span></article>)}{!a.length&&<p>No applications yet.</p>}</main>}
